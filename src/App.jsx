@@ -8,8 +8,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage/>}/>
-        <Route path="/products/create" element={<CreateProductPage/>}/>
-        <Route path ="/products/update/:productId" element={UpdateProductPage}/>
+        <Route path="/products/create" element={<CreateProductPage />}/>
+        <Route path ="/products/update/:productId" element={<UpdateProductPage />}/>
       </Routes>
     </BrowserRouter>
   );

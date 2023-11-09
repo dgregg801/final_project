@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 
-function CreateProductPage({ onAddProduct }) {
+function CreateProductPage() {
   const [newProductData, setNewProductData] = useState({
     company_name: "",
     products: "",
@@ -20,7 +20,7 @@ function CreateProductPage({ onAddProduct }) {
       .then((response) => response.json())
       .then((result) => {
         console.log("New product added:", result);
-        onAddProduct(result);
+        
          // Pass the new product data to the parent component
         setNewProductData({
           company_name: "",

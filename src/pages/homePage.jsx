@@ -14,7 +14,7 @@ function HomePage() {
           Industries dipped its toe in the world of latex import/export,
           specializing in all things rubbery. But destiny had other plans; it
           turns out, Art was hilariously allergic to latex! Yes, the founder of
-          a latex empire allergic to latex – talk about irony. Amidst sneezes
+          a latex empire allergic to latex, talk about irony. Amidst sneezes
           and awkwardly timed hiccups, Art swiftly shifted gears and rebranded
           the company into the eccentric world of grocery products. From bouncy
           balloons to bountiful bananas, Vandelay Industries offers it all. Our

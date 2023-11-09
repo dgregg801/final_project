@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CreateProductPage from "./CreateProductPage";
 import UpdateProductPage from "./updateProductPage";
+import { NavLink } from "react-router-dom";
 
 function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -32,29 +33,29 @@ function ProductsPage() {
       .then((response) => response.json())
       .then((result) => {
         console.log("New product added:", result);
-        // Update your product list, for example:
+        
         setProducts([...products, result]);
       })
       .catch((error) => {
-        // Handle errors
+        
         console.error(error);
       });
   };
 
-  // Function to update a product
-  const handleUpdateProduct = (productId) => {
-    fetch(`http://localhost:5678/products/products/${productId}`, {
+  
+  const handleUpdateProduct = (order_id) => {
+    fetch(`http://localhost:5678/products/products/${order_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedProductData), // Replace with your updated product data
+      body: JSON.stringify(updatedProductData),
     })
       .then((response) => response.json())
       .then((result) => {
         setProducts(
           products.map((product) => {
-            if (product.id === productId) {
+            if (product.order_id === productId) {
               return result;
             } else {
               return product;
@@ -65,23 +66,32 @@ function ProductsPage() {
         console.log("Product updated:", result);
       })
       .catch((error) => {
-        // Handle errors
+        
         console.error(error);
       });
   };
 
-  // Function to delete a product
-  const handleDeleteProduct = (productId) => {
-    fetch(`http://localhost:5678/products/products/${productId}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setProducts(products.filter((product) => product.id !== products));
+  
+  const handleDeleteProduct = (order_id) => {
+    if (productId) {
+      fetch(`http://localhost:5678/products/products/${order_id}`, {
+        method: "DELETE",
       })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Delet request failed");
+          }
+          return null;
+        })
+        .then(() => {
+          setProducts((prevProducts) =>
+            prevProducts.filter((product) => product.order_id !== order_id)
+          );
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   const handleCreateProductData = (newData) => {
@@ -90,11 +100,15 @@ function ProductsPage() {
 
   const handleUpdateProductData = (updatedData) => {
     setUpdatedProductData(updatedData);
-  }
+  };
 
   useEffect(() => {
     handleGetProducts();
   }, []);
+
+  const handleProductCardClick = (order_id) => {
+    setProductId(order_id);
+  };
 
   return (
     <>
@@ -103,28 +117,31 @@ function ProductsPage() {
       <div className="productsInfo">
         {products.map((products, index) => {
           return (
-            <div
+            <NavLink
               key={index}
-              className="productsCard"
-              order-id={products.order_id}
+              to={`/products/update/${products.order_id}`}
+              className="product-card-link"
             >
-              <span>{products.company_name}</span>
-              <span>Product: {products.products}</span>
-              <span>Our compay slogan: {products.company_slogan}</span>
-              <span>Importer or Exporter: {products.importer_exporter}</span>
-            </div>
+              <div
+                className="productsCard"
+                
+                onClick={() => handleProductCardClick(products.order_id)}
+              >
+                <span>{products.company_name}</span>
+                <span>Product: {products.products}</span>
+                <span>Our compay slogan: {products.company_slogan}</span>
+                <span>Importer or Exporter: {products.importer_exporter}</span>
+              </div>
+            </NavLink>
           );
         })}
       </div>
       <div>
-        <button onClick={() => handleUpdateProduct(products.products)}>
-          Update
-        </button>
-        <button onClick={() => handleDeleteProduct(products)}>Delete</button>
+      
+        <button onClick={() => handleDeleteProduct(productId)}>Delete</button>
       </div>
 
-      <CreateProductPage onAddProduct={handleAddProduct} />
-      <UpdateProductPage onUpdateProduct={handleUpdateProductData} />
+       
     </>
   );
 }

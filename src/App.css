@@ -128,6 +128,14 @@ overflow: hidden;
   margin-top: 18rem; /* Adjust this value as needed */
   padding: 1rem;
   background-color: #f0f0f0; /* Add a background color or style as desired */
+  max-width: 50%;
+  text-align: center;
+}
+
+
+.founder-image {
+  height: auto;
+  max-width: 25%;
 }
 
 
