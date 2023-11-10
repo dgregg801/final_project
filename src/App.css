@@ -49,7 +49,9 @@
 
 
 body {
-  background-image: url('https://png.pngtree.com/thumb_back/fh260/back_pic/04/02/92/575806036c011c0.jpg');
+  background-image: url('https://t3.ftcdn.net/jpg/05/78/59/30/360_F_578593018_BdpR0ojho3IX3tdQNEM1A8NM8LQ65bVK.jpg');
+  background-size: cover;
+  
 }
 
 
@@ -125,10 +127,11 @@ overflow: hidden;
 }
 
 .about-founder {
-  margin-top: 18rem; /* Adjust this value as needed */
+  margin-top: 19rem; /* Adjust this value as needed */
   padding: 1rem;
   background-color: #f0f0f0; /* Add a background color or style as desired */
   max-width: 50%;
+  max-height: 10%;
   text-align: center;
 }
 
@@ -137,6 +140,33 @@ overflow: hidden;
   height: auto;
   max-width: 25%;
 }
+
+/* styles.css (or any other CSS file) */
+.navbar {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 10px; 
+}
+
+.nav-list {
+  list-style-type: none; 
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  display: inline; 
+  margin-right: 20px; /* Add some spacing between items */
+}
+
+.nav-item a {
+  text-decoration: none; /* Remove underlines from links */
+  color: #fff; /* Text color for the links */
+}
+
+.nav-item a:hover {
+  text-decoration: underline; /* Add underline on hover for links */
+}
+
 
 
 

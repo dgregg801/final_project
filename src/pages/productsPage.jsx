@@ -3,11 +3,10 @@ import CreateProductPage from "./CreateProductPage";
 import UpdateProductPage from "./updateProductPage";
 import { NavLink } from "react-router-dom";
 
-function ProductsPage() {
+function ProductsPage( { setSelectedProduct } ) {
   const [products, setProducts] = useState([]);
   const [productId, setProductId] = useState(null);
   const [newProductData, setNewProductData] = useState({});
-  const [updatedProductData, setUpdatedProductData] = useState({});
 
   console.log("product data", products);
 
@@ -33,16 +32,14 @@ function ProductsPage() {
       .then((response) => response.json())
       .then((result) => {
         console.log("New product added:", result);
-        
+
         setProducts([...products, result]);
       })
       .catch((error) => {
-        
         console.error(error);
       });
   };
 
-  
   const handleUpdateProduct = (order_id) => {
     fetch(`http://localhost:5678/products/products/${order_id}`, {
       method: "PUT",
@@ -66,12 +63,10 @@ function ProductsPage() {
         console.log("Product updated:", result);
       })
       .catch((error) => {
-        
         console.error(error);
       });
   };
 
-  
   const handleDeleteProduct = (order_id) => {
     if (productId) {
       fetch(`http://localhost:5678/products/products/${order_id}`, {
@@ -107,13 +102,19 @@ function ProductsPage() {
   }, []);
 
   const handleProductCardClick = (order_id) => {
-    setProductId(order_id);
+    const selectedProduct = products.find(
+      (product) => product.order_id === order_id
+    );
+    if (selectedProduct) {
+     setSelectedProduct(selectedProduct);
+      console.log("Selected Product Data", selectedProduct);
+    }
   };
 
   return (
     <>
       <h1 className="header">Vandelay Industries</h1>
-      <button onClick={handleAddProduct}>Add Product</button>
+
       <div className="productsInfo">
         {products.map((products, index) => {
           return (
@@ -124,7 +125,6 @@ function ProductsPage() {
             >
               <div
                 className="productsCard"
-                
                 onClick={() => handleProductCardClick(products.order_id)}
               >
                 <span>{products.company_name}</span>
@@ -136,12 +136,7 @@ function ProductsPage() {
           );
         })}
       </div>
-      <div>
-      
-        <button onClick={() => handleDeleteProduct(productId)}>Delete</button>
-      </div>
-
-       
+      <div></div>
     </>
   );
 }

@@ -1,10 +1,33 @@
+import { NavLink } from "react-router-dom";
+
+
 function HomePage() {
+  
   return (
     <>
+      <nav className="navbar">
+        <ul className="nav-list">
+          <li className="nav-item">
+            <NavLink to="/products" className={isActive => (isActive?"active-link" : "")}>
+              Products
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="products/create" className={isActive => (isActive?"active-link" : "")}>
+              Create
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="products/update" className={isActive => (isActive?"active-link" : "")}>
+              Update
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
       <h1>Welcome Back to Vandelay Industries</h1>
       <h2>Please fill out form below to access products</h2>
 
-      {/* About the Founder Section */}
+      
       <section className="about-founder">
         <h2>About the Founder</h2>
         <p>

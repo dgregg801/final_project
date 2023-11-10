@@ -1,28 +1,35 @@
 
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
-function UpdateProductPage({ onUpdateProduct, onDeleteProduct }) {
+function UpdateProductPage({ selectedProduct }) {
+  const navigate = useNavigate();
   const { productId } = useParams();
 
-  const [updatedProductData, setUpdatedProductData] = useState({
-    company_name: "",
-    importer_exporter: "",
-    products: "",
-  });
-  //const [companyName, setCompanyName] = useState("");
-  //const [importerExporter, setImporterExporter] = useState("");
-  //const [products, setProducts] = useState("");
+  //const [updatedProductData,setUpdatedProductData] = useState({company_name:"", importer_exporter: "", products: ""});
+  const [companyName, setCompanyName] = useState("");
+  const [importerExporter, setImporterExporter] = useState("");
+  const [products, setProducts] = useState("");
+
+  console.log('selected product on updateProductsPage', selectedProduct);
+  
+
+  const updateData = {
+    company_name: companyName,
+    importer_exporter: importerExporter,
+    products:products,
+  };
 
   //input states
   //the PUT object that gets sent back for updating
+
 
   //your input states will go into here
 
   console.log("product id", productId);
 
   // Fetch the current product data when the component mounts
-  useEffect(() => {
+  /* useEffect(() => {
     if (productId) {
       fetch(`http://localhost:5678/products/${productId}`, { method: "GET" })
         .then((response) => response.json())
@@ -37,15 +44,17 @@ function UpdateProductPage({ onUpdateProduct, onDeleteProduct }) {
           console.error(error);
         });
     }
-  }, [productId]);
+  }, [productId]); */
 
-  const handleUpdateProduct = () => {
-    const updateData = {
-      company_name: updatedProductData.company_name,
-      importer_exporter: updatedProductData.importer_exporter,
-      products: updatedProductData.products,
-    };
+  useEffect(() => {
+    setCompanyName(selectedProduct.company_name);
+    setImporterExporter(selectedProduct.importer_exporter);
+    setProducts(selectedProduct.products);
+  },[]);
 
+  const handleUpdateProduct = (event) => {
+    event.preventDefault();
+    console.log(event);
     fetch(`http://localhost:5678/products/products/${productId}`, {
       method: "PUT",
       headers: {
@@ -55,7 +64,7 @@ function UpdateProductPage({ onUpdateProduct, onDeleteProduct }) {
     })
       .then((response) => response.json())
       .then((result) => {
-        onUpdateProduct(result);
+        //onUpdateProduct(result); 
         console.log("Product updated:", result);
       })
       .catch((error) => {
@@ -64,29 +73,44 @@ function UpdateProductPage({ onUpdateProduct, onDeleteProduct }) {
   };
 
   const handleDeleteProduct = () => {
-    onDeleteProduct(productId);
+    fetch(`http://localhost:5678/products/products/${productId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Delete request failed");
+        }
+        return null;
+      })
+      .then(() => {
+        // Redirect back to the ProductsPage after deletion
+        navigate("/products");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
-  const handleInputChange = (e, inputName) => {
+ /* const handleInputChange = (e, inputName) => {
     const value = e.target.value;
     setUpdatedProductData((prevData) => ({
       ...prevData,
       [inputName]: value,
     }));
-  };
+  }; */
 
 
   return (
     <div>
             <h2>Update Product</h2>
-            <form>
+            <form onSubmit={handleUpdateProduct}>
                 <div>
                     <label>Company Name:</label>
                     <input
                         type="text"
                         name="company_name"
-                        value={updatedProductData.company_name}
-                        onChange={(e) => handleInputChange(e, "company_name")}
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
                     />
                 </div>
                 <div>
@@ -94,8 +118,8 @@ function UpdateProductPage({ onUpdateProduct, onDeleteProduct }) {
                     <input
                         type="text"
                         name="importer_exporter"
-                        value={updatedProductData.importer_exporter}
-                        onChange={(e) => handleInputChange(e, "importer_exporter")}
+                        value={importerExporter}
+                        onChange={(e) => setImporterExporter(e.target.value)}
                     />
                 </div>
                 <div>
@@ -103,12 +127,12 @@ function UpdateProductPage({ onUpdateProduct, onDeleteProduct }) {
                     <input
                         type="text"
                         name="products"
-                        value={updatedProductData.products}
-                        onChange={(e) => handleInputChange(e, "products")}
+                        value={products}
+                        onChange={(e) => setProducts(e.target.value)}
                     />
                 </div>
-                <button onClick={handleUpdateProduct}>Update</button>
-                <button onClick={handleDeleteProduct}>Delete</button>
+                <button type="submit">Update</button>
+                <button type="button" onClick={handleDeleteProduct}>Delete</button>
             </form>
         </div>
   );
