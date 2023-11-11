@@ -3,7 +3,7 @@ import CreateProductPage from "./CreateProductPage";
 import UpdateProductPage from "./updateProductPage";
 import { NavLink } from "react-router-dom";
 
-function ProductsPage( { setSelectedProduct } ) {
+function ProductsPage({ setSelectedProduct }) {
   const [products, setProducts] = useState([]);
   const [productId, setProductId] = useState(null);
   const [newProductData, setNewProductData] = useState({});
@@ -106,7 +106,7 @@ function ProductsPage( { setSelectedProduct } ) {
       (product) => product.order_id === order_id
     );
     if (selectedProduct) {
-     setSelectedProduct(selectedProduct);
+      setSelectedProduct(selectedProduct);
       console.log("Selected Product Data", selectedProduct);
     }
   };
@@ -115,28 +115,31 @@ function ProductsPage( { setSelectedProduct } ) {
     <>
       <h1 className="header">Vandelay Industries</h1>
 
-      <div className="productsInfo">
-        {products.map((products, index) => {
-          return (
-            <NavLink
-              key={index}
-              to={`/products/update/${products.order_id}`}
-              className="product-card-link"
-            >
-              <div
-                className="productsCard"
-                onClick={() => handleProductCardClick(products.order_id)}
+      <div className="products-page-container">
+        <div className="productsInfo">
+          {products.map((products, index) => {
+            return (
+              <NavLink
+                key={index}
+                to={`/products/update/${products.order_id}`}
+                className="product-card-link"
               >
-                <span>{products.company_name}</span>
-                <span>Product: {products.products}</span>
-                <span>Our compay slogan: {products.company_slogan}</span>
-                <span>Importer or Exporter: {products.importer_exporter}</span>
-              </div>
-            </NavLink>
-          );
-        })}
+                <div
+                  className="productsCard"
+                  onClick={() => handleProductCardClick(products.order_id)}
+                >
+                  <span>{products.company_name}</span>
+                  <span>Product: {products.products}</span>
+                  <span>Our compay slogan: {products.company_slogan}</span>
+                  <span>
+                    Importer or Exporter: {products.importer_exporter}
+                  </span>
+                </div>
+              </NavLink>
+            );
+          })}
+        </div>
       </div>
-      <div></div>
     </>
   );
 }

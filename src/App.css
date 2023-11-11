@@ -48,57 +48,29 @@
 }
 
 
-body {
+
+  
+  body {
   background-image: url('https://t3.ftcdn.net/jpg/05/78/59/30/360_F_578593018_BdpR0ojho3IX3tdQNEM1A8NM8LQ65bVK.jpg');
   background-size: cover;
-  
-}
+}  
+
+ /* .products-page-container {
+  min-height: 100vh;
+  background-image: url('https://t3.ftcdn.net/jpg/05/78/59/30/360_F_578593018_BdpR0ojho3IX3tdQNEM1A8NM8LQ65bVK.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center; */
 
 
-
-.header {
-
-  font-size: 3rem;
-  display: block;
-  margin: auto;
+/* .header {
+  font-size: 70px;
   font-weight: 600;
-  background-image: linear-gradient(to left, #553c9a, #b393d3);
+  background-image: linear-gradient(to left, #553c9a, #b393d3); 
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
-  text-transform: uppercase;
-  text-align: center;
-  width: 100%;
-
-  text-shadow: 1px 1px 1px #957dad,
-             1px 2px 1px #957dad,
-             1px 3px 1px #957dad,
-             1px 4px 1px #957dad,
-             1px 5px 1px #957dad,
-             1px 6px 1px #957dad,
-             1px 10px 5px rgba(16, 16, 16, 0.5),
-             1px 15px 10px rgba(16, 16, 16, 0.4),
-             1px 20px 30px rgba(16, 16, 16, 0.3),
-             1px 25px 50px rgba(16, 16, 16, 0.2);
-
-animation: cursor 1s infinite step-end, typing 15s infinite steps(20);
-white-space: nowrap;
-overflow: hidden;
-}
-
-@keyframes cursor {
-  0%, 100%{border-color: transparent;}
-  50%{border-color: #000;}
-
-}
-
-@keyframes typing{
-  0%{ width: 0ch} /*Text is hidden*/
-  30%{ width: 20ch;} /*The enitre header will be typed out*/
-  80%{ width: 20ch;} /*Text stays visible*/
-  90%{ width: 0ch;} /*Text is deleted*/
-  100%{ width: 0ch;} /*Text stays hidden*/
-}
+} */
 
 .productsInfo {
   display: grid;
@@ -114,7 +86,6 @@ overflow: hidden;
 }
 
 
-  
 .productsCard {
   border: 1px  solid red;
   display: flex;
@@ -124,24 +95,36 @@ overflow: hidden;
   width: 100%; 
   height: 100%;
   
+  
 }
 
 .about-founder {
-  margin-top: 19rem; /* Adjust this value as needed */
+  margin: auto; 
+  margin-top: 5rem;
+  margin-bottom: 0rem;
   padding: 1rem;
-  background-color: #f0f0f0; /* Add a background color or style as desired */
-  max-width: 50%;
+  background-color: #f0f0f0; 
+  max-width: 40%;
   max-height: 10%;
   text-align: center;
+  overflow: auto;
+  
+}
+
+.about-founder p {
+  line-height: .95;
+  margin: 0;
+  font-size: 12px;
 }
 
 
 .founder-image {
   height: auto;
   max-width: 25%;
+  padding: 5px;
 }
 
-/* styles.css (or any other CSS file) */
+
 .navbar {
   background-color: rgba(0, 0, 0, 0);
   padding: 10px; 
@@ -155,18 +138,56 @@ overflow: hidden;
 
 .nav-item {
   display: inline; 
-  margin-right: 20px; /* Add some spacing between items */
+  margin-right: 20px; 
 }
 
 .nav-item a {
-  text-decoration: none; /* Remove underlines from links */
-  color: #fff; /* Text color for the links */
+  text-decoration: none; 
+  color: black; 
 }
 
 .nav-item a:hover {
-  text-decoration: underline; /* Add underline on hover for links */
+  text-decoration: underline; 
 }
 
+/* create page */
+
+/* .center-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; 
+} */
+
+.create-navbar {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 10px;
+  margin-bottom: 500px;
+  
+}
+
+.create-nav-list {
+  list-style-type: none; 
+  margin: 0;
+  padding: 0;
+  color: pink;
+}
+
+.create-nav-item {
+  display: inline; 
+  margin-right: 50px;
+  color: pink;
+}
+
+.create-nav-item a {
+  text-decoration: none; 
+  color: black;
+}
+
+.create-nav-item a:hover {
+  text-decoration: underline;
+}
 
 
 
