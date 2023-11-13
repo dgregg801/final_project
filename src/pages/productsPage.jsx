@@ -74,7 +74,7 @@ function ProductsPage({ setSelectedProduct }) {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Delet request failed");
+            throw new Error("Delete request failed");
           }
           return null;
         })
