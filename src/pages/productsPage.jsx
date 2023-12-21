@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
-import CreateProductPage from "./CreateProductPage";
-import UpdateProductPage from "./updateProductPage";
 import { NavLink } from "react-router-dom";
 
 function ProductsPage({ setSelectedProduct }) {
+  // State to store the list of products
   const [products, setProducts] = useState([]);
-  const [productId, setProductId] = useState(null);
-  const [newProductData, setNewProductData] = useState({});
 
-  console.log("product data", products);
-
+  // Function to fetch products from the server
   const handleGetProducts = () => {
     fetch("http://localhost:5678/products/products")
       .then((response) => response.json())
@@ -21,91 +17,19 @@ function ProductsPage({ setSelectedProduct }) {
       });
   };
 
-  const handleAddProduct = () => {
-    fetch("http://localhost:5678/products/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProductData), // Replace with your product data
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("New product added:", result);
-
-        setProducts([...products, result]);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  const handleUpdateProduct = (order_id) => {
-    fetch(`http://localhost:5678/products/products/${order_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedProductData),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setProducts(
-          products.map((product) => {
-            if (product.order_id === productId) {
-              return result;
-            } else {
-              return product;
-            }
-          })
-        );
-
-        console.log("Product updated:", result);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  const handleDeleteProduct = (order_id) => {
-    if (productId) {
-      fetch(`http://localhost:5678/products/products/${order_id}`, {
-        method: "DELETE",
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Delete request failed");
-          }
-          return null;
-        })
-        .then(() => {
-          setProducts((prevProducts) =>
-            prevProducts.filter((product) => product.order_id !== order_id)
-          );
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  };
-
-  const handleCreateProductData = (newData) => {
-    setNewProductData(newData);
-  };
-
-  const handleUpdateProductData = (updatedData) => {
-    setUpdatedProductData(updatedData);
-  };
-
+  // Fetch products when the component mounts
   useEffect(() => {
     handleGetProducts();
   }, []);
 
+  // Function to handle click on a product card
   const handleProductCardClick = (order_id) => {
+    // Find the selected product based on order_id
     const selectedProduct = products.find(
       (product) => product.order_id === order_id
     );
     if (selectedProduct) {
+      // Set the selected product in the parent component
       setSelectedProduct(selectedProduct);
       console.log("Selected Product Data", selectedProduct);
     }
@@ -113,10 +37,23 @@ function ProductsPage({ setSelectedProduct }) {
 
   return (
     <>
-      <h1 className="header">Vandelay Industries</h1>
+      {/* Navigation bar for creating a new product */}
+      <div>
+        <nav>
+          <NavLink to="/products/create" className="nav-link">
+            Create Product
+          </NavLink>
+        </nav>
+      </div>
 
+      {/* Page Header */}
+      <h1 className="header">Vandelay Industries</h1>
+      <h2>(Click on product to update)</h2>
+
+      {/* Container for displaying products */}
       <div className="products-page-container">
         <div className="productsInfo">
+          {/* Map through the list of products to create product cards */}
           {products.map((products, index) => {
             return (
               <NavLink
@@ -124,6 +61,7 @@ function ProductsPage({ setSelectedProduct }) {
                 to={`/products/update/${products.order_id}`}
                 className="product-card-link"
               >
+                {/* Product card click event */}
                 <div
                   className="productsCard"
                   onClick={() => handleProductCardClick(products.order_id)}

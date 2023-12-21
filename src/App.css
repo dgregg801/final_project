@@ -150,15 +150,7 @@
   text-decoration: underline; 
 }
 
-/* create page */
 
-/* .center-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 100vh; 
-} */
 
 .create-navbar {
   background-color: rgba(0, 0, 0, 0);
@@ -192,6 +184,14 @@
   text-decoration: underline;
 }
 
+.update-navbar {
+  margin-bottom: 250px;
+  
+}
+
+.update-nav-link {
+  margin-right: 50px;
+}
 
 
 
